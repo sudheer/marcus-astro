@@ -56,6 +56,21 @@ Once enabled, the sample site will be available at:
 4. Merge to `main` (or `master`) to trigger deployment.
 5. Check the **Actions** tab for the `Deploy to GitHub Pages` workflow.
 
+
+### GitHub Pages setup (one-time)
+
+Yes — this is mostly a one-time setup.
+
+In your repository:
+
+1. Go to **Settings → Pages**.
+2. Under **Build and deployment**, choose:
+   - **Source**: `GitHub Actions`
+3. Do **not** choose `Deploy from a branch` when using these workflows.
+4. Save and run the workflow by pushing to `main`/`master` (or trigger manually from **Actions**).
+
+After this one-time setup, future deployments happen automatically from the workflow.
+
 CI runs on PRs and pushes via `.github/workflows/ci.yml`.
 
 
