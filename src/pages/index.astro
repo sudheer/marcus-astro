@@ -1,0 +1,39 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostSection from '../components/PostSection.astro';
+
+const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
+);
+
+const micro = (await getCollection('micro', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
+);
+---
+
+<BaseLayout title="SuDo — Editorial Astro Theme">
+  <div class="content intro">
+    <p>
+      A minimal writing home for essays and short notes. Calm typography, structured indexes, and a
+      quieter first impression.
+    </p>
+  </div>
+
+  <PostSection title="Posts" href="posts" items={posts.slice(0, 5)} />
+  <PostSection title="Micro" href="micro" items={micro.slice(0, 5)} />
+</BaseLayout>
+
+<style>
+  .intro {
+    margin-top: 2.25rem;
+    padding-bottom: 0.35rem;
+  }
+
+  .intro p {
+    max-width: 38rem;
+    margin: 0;
+    font-size: 1.12rem;
+    line-height: 1.75;
+  }
+</style>

@@ -1,0 +1,94 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+
+const base = import.meta.env.BASE_URL;
+
+const links = [
+  { href: '', label: 'Home' },
+  { href: 'posts/', label: 'Posts' },
+  { href: 'micro/', label: 'Micro' }
+];
+
+const normalizePath = (pathname: string) => {
+  if (!pathname.startsWith(base)) return pathname;
+  const rest = pathname.slice(base.length);
+  return `/${rest}`.replace(/\/+/g, '/');
+};
+
+const isActive = (href: string, pathname: string) => {
+  const target = `/${href}`.replace(/\/+/g, '/').replace(/\/$/, '') || '/';
+  const current = normalizePath(pathname).replace(/\/$/, '') || '/';
+  return target === '/' ? current === '/' : current.startsWith(target);
+};
+
+const pathname = Astro.url.pathname;
+---
+
+<header class="header shell">
+  <div class="content row">
+    <a href={base} class="brand">SuDo</a>
+    <nav aria-label="Main">
+      <ul>
+        {links.map((link) => (
+          <li>
+            <a href={`${base}${link.href}`} aria-current={isActive(link.href, pathname) ? 'page' : undefined}>
+              {link.label}
+            </a>
+          </li>
+        ))}
+        <li><ThemeToggle /></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .header {
+    padding: 1.6rem 0 0.9rem;
+  }
+
+  .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .brand {
+    font-family: var(--font-ui);
+    font-size: 1.45rem;
+    font-weight: 600;
+    letter-spacing: 0;
+  }
+
+  ul {
+    font-family: var(--font-ui);
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 1.2rem;
+    align-items: center;
+  }
+
+  nav a {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--muted);
+  }
+
+  nav a[aria-current='page'] {
+    color: var(--text);
+  }
+
+  @media (max-width: 740px) {
+    .brand {
+      font-size: 1.28rem;
+    }
+
+    ul {
+      gap: 0.9rem;
+      font-size: 0.92rem;
+    }
+  }
+</style>
