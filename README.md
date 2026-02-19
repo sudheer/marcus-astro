@@ -66,7 +66,7 @@ A pull request preview workflow is included at `.github/workflows/preview.yml`.
 When you open or update a PR:
 
 1. GitHub Actions builds the site.
-2. It deploys a **preview** with `actions/deploy-pages` (`preview: true`).
-3. It posts the preview URL back into the PR as a comment.
+2. It uploads the built static site as an artifact (`site-preview-dist`).
+3. It comments on the PR with a direct workflow-run link and download instructions.
 
-This lets you review the design safely before merging to `main`.
+This lets you review the built website safely before merging to `main`, without requiring Pages preview permissions.
