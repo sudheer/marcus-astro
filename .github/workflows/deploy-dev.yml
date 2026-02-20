@@ -4,9 +4,17 @@ on:
   push:
     branches: [dev]
   workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Branch/tag/SHA to deploy as preview'
+        required: false
+        default: 'dev'
 
 permissions:
   contents: write
+
+env:
+  PAGES_BRANCH: gh-pages
 
 concurrency:
   group: deploy-dev
@@ -21,6 +29,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref || 'dev' }}
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -33,10 +43,10 @@ jobs:
       - name: Build development preview site
         run: npm run build
 
-      - name: Deploy to gh-pages/preview
+      - name: Deploy to pages branch /preview
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          branch: gh-pages
+          branch: ${{ env.PAGES_BRANCH }}
           folder: dist
           target-folder: preview
           clean: true

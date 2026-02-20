@@ -80,3 +80,23 @@ When you open or update a PR:
 3. It comments on the PR with a direct workflow-run link and download instructions.
 
 This lets you review the built website safely before merging to `main`, without requiring Pages preview permissions.
+
+
+## Troubleshooting `/preview/` 404
+
+If `https://sudheer.github.io/marcus-astro/preview/` shows 404, it usually means Pages is reading the wrong branch.
+
+Verify this exact setup:
+
+1. **Settings → Pages**
+2. **Source** = `Deploy from a branch`
+3. **Branch** = `gh-pages`
+4. **Folder** = `/(root)`
+5. Save
+
+Then run:
+
+- **Actions → Deploy development site** (manual run is okay) to publish `/preview/`
+- **Actions → Deploy production site** to refresh root site
+
+Important: if Pages is set to any branch other than `gh-pages` (for example your feature branch), `/preview/` will not exist there and returns 404.

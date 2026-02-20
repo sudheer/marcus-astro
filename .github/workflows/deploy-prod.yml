@@ -8,6 +8,9 @@ on:
 permissions:
   contents: write
 
+env:
+  PAGES_BRANCH: gh-pages
+
 concurrency:
   group: deploy-prod
   cancel-in-progress: true
@@ -33,10 +36,10 @@ jobs:
       - name: Build production site
         run: npm run build
 
-      - name: Deploy to gh-pages root
+      - name: Deploy to pages branch root
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          branch: gh-pages
+          branch: ${{ env.PAGES_BRANCH }}
           folder: dist
           clean: true
           clean-exclude: preview
