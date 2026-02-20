@@ -1,0 +1,15 @@
+# Fallback config only for accidental GitHub Pages Jekyll builds.
+# The real site is Astro and is deployed by GitHub Actions workflows.
+exclude:
+  - src
+  - node_modules
+  - package.json
+  - package-lock.json
+  - tsconfig.json
+  - astro.config.mjs
+  - .github
+  - README.md
+
+# Prevent Jekyll from trying to transform Astro source when branch-based
+# Pages build runs unexpectedly.
+markdown: kramdown

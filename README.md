@@ -107,3 +107,17 @@ Important: if Pages is set to any branch other than `gh-pages` (for example your
 ### Why `gh-pages` was missing
 
 GitHub only shows existing branches in Pages settings. If `gh-pages` was never created, it will not appear in the dropdown. Running the bootstrap workflow once fixes that.
+
+
+## If you see Jekyll error on `.astro` files
+
+If GitHub logs show `Invalid YAML front matter ... .astro`, your repo is being built by the default **pages build and deployment** (Jekyll) job on source branch files.
+
+Fix:
+
+1. Set **Settings → Pages → Source** to `Deploy from a branch`
+2. Select branch `gh-pages`, folder `/(root)`
+3. Run **Bootstrap gh-pages branch** once (if missing)
+4. Re-run deploy workflows
+
+This repository also includes `_config.yml` + `.nojekyll` fallback to avoid Jekyll parsing Astro source if branch configuration is temporarily incorrect.
