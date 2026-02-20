@@ -77,11 +77,15 @@ A pull request preview workflow is included at `.github/workflows/preview.yml`.
 
 When you open or update a PR:
 
-1. GitHub Actions builds the site.
-2. It uploads the built static site as an artifact (`site-preview-dist`).
-3. It comments on the PR with a direct workflow-run link and download instructions.
+1. GitHub Actions builds the site for that PR.
+2. It deploys to `gh-pages/preview/pr-<PR_NUMBER>/`.
+3. It comments a direct preview URL on the PR.
 
-This lets you review the built website safely before merging to `main`, without requiring Pages preview permissions.
+Preview URL format:
+
+- `https://sudheer.github.io/marcus-astro/preview/pr-<PR_NUMBER>/`
+
+This provides a clickable live URL for each PR without using the alpha GitHub Pages preview feature.
 
 
 ## Troubleshooting `/preview/` 404

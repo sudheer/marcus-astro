@@ -5,16 +5,22 @@ on:
     types: [opened, synchronize, reopened]
 
 permissions:
-  contents: read
+  contents: write
   pull-requests: write
 
 concurrency:
   group: preview-${{ github.event.pull_request.number }}
   cancel-in-progress: true
 
+env:
+  PAGES_BRANCH: gh-pages
+
 jobs:
-  preview-build:
+  preview-deploy:
     runs-on: ubuntu-latest
+    env:
+      DEPLOY_TARGET: pr
+      DEPLOY_PREVIEW_PATH: pr-${{ github.event.pull_request.number }}
 
     steps:
       - name: Checkout
@@ -31,28 +37,30 @@ jobs:
       - name: Build site
         run: npm run build
 
-      - name: Upload preview artifact
-        uses: actions/upload-artifact@v4
+      - name: Deploy PR preview to gh-pages
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          name: site-preview-dist
-          path: ./dist
-          if-no-files-found: error
+          branch: ${{ env.PAGES_BRANCH }}
+          folder: dist
+          target-folder: preview/pr-${{ github.event.pull_request.number }}
+          clean: true
 
-      - name: Comment preview instructions on PR
+      - name: Comment preview URL on PR
         uses: actions/github-script@v7
         with:
           script: |
-            const runUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const pr = context.payload.pull_request.number;
+            const url = `https://${context.repo.owner}.github.io/${context.repo.repo}/preview/pr-${pr}/`;
             const body = [
-              '🔍 Preview build is ready.',
+              '🔍 PR preview is ready.',
               '',
-              `- Open this workflow run: ${runUrl}`,
-              '- Download the `site-preview-dist` artifact from the Artifacts section.',
-              '- Unzip and open `index.html` locally, or serve it with a static server to review.'
+              `**Open preview:** ${url}`,
+              '',
+              '_If the URL is not yet live, wait 1-2 minutes and refresh._'
             ].join('\n');
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              issue_number: context.issue.number,
+              issue_number: pr,
               body
             });
