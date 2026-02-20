@@ -146,3 +146,13 @@ Still recommended for Astro deployments:
 Astro static assets are emitted under `/_astro/`. On GitHub Pages, if `.nojekyll` is missing in the published output, Jekyll can ignore underscore-prefixed folders and assets may 404.
 
 Deploy workflows now write `dist/.nojekyll` before publish (prod/dev/PR preview) to keep preview links working correctly.
+
+
+### PR preview reliability checks
+
+PR preview workflow now:
+
+1. Ensures `gh-pages` exists (bootstraps if missing)
+2. Deploys PR build to `/preview/pr-<PR_NUMBER>/`
+3. Verifies URL returns HTTP 200 before posting the preview link
+4. Posts a failure comment with exact Pages setting fixes if the URL is unreachable
