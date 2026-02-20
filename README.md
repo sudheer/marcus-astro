@@ -121,3 +121,17 @@ Fix:
 4. Re-run deploy workflows
 
 This repository also includes `_config.yml` + `.nojekyll` fallback to avoid Jekyll parsing Astro source if branch configuration is temporarily incorrect.
+
+
+## If GitHub Pages build logs show `Source: ./docs`
+
+That means repository Pages is currently configured to build from the `docs/` folder.
+
+This repo now includes a minimal `docs/index.md` so that configuration no longer fails with `No such file or directory ... /docs`.
+
+Still recommended for Astro deployments:
+
+1. **Settings → Pages**
+2. **Source**: `Deploy from a branch`
+3. **Branch**: `gh-pages`
+4. **Folder**: `/(root)`
