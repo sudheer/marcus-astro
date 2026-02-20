@@ -55,12 +55,14 @@ For a project site, URLs are typically:
 
 Yes, this is mostly a one-time setup.
 
-1. Open **Settings → Pages** in your repository.
-2. Under **Build and deployment**, choose:
+1. Open **Actions** and run **Bootstrap gh-pages branch** once.
+   - This creates `gh-pages` so it appears in Pages branch selection.
+2. Open **Settings → Pages** in your repository.
+3. Under **Build and deployment**, choose:
    - **Source**: `Deploy from a branch`
    - **Branch**: `gh-pages`
    - **Folder**: `/(root)`
-3. Save.
+4. Save.
 
 After that:
 
@@ -100,3 +102,8 @@ Then run:
 - **Actions → Deploy production site** to refresh root site
 
 Important: if Pages is set to any branch other than `gh-pages` (for example your feature branch), `/preview/` will not exist there and returns 404.
+
+
+### Why `gh-pages` was missing
+
+GitHub only shows existing branches in Pages settings. If `gh-pages` was never created, it will not appear in the dropdown. Running the bootstrap workflow once fixes that.
