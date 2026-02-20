@@ -1,5 +1,6 @@
 :root {
   color-scheme: light dark;
+  font-size: 17px;
   --bg: #f5f7f9;
   --panel: #ffffff;
   --text: #1f2933;
@@ -8,7 +9,7 @@
   --code-bg: #eff3f6;
   --link: #1f2933;
   --link-hover: #000;
-  --max-width: 880px;
+  --max-width: 920px;
   --toc-width: 240px;
   --radius: 12px;
 }
@@ -43,7 +44,7 @@ a { color: var(--link); text-decoration: none; }
 a:hover { color: var(--link-hover); }
 
 .shell {
-  width: min(calc(100% - 3rem), 1100px);
+  width: min(calc(100% - 2.5rem), 1180px);
   margin: 0 auto;
 }
 
@@ -55,7 +56,7 @@ h1, h2, h3 { line-height: 1.2; letter-spacing: -0.02em; }
 
 .prose p,
 .prose li,
-.prose table { font-size: 1.06rem; }
+.prose table { font-size: 1.08rem; }
 
 .prose pre {
   background: var(--code-bg);
