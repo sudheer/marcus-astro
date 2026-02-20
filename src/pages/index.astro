@@ -20,8 +20,8 @@ const micro = (await getCollection('micro', ({ data }) => !data.draft)).sort(
     </p>
   </div>
 
-  <PostSection title="Posts" href="/posts" items={posts.slice(0, 5)} />
-  <PostSection title="Micro" href="/micro" items={micro.slice(0, 5)} />
+  <PostSection title="Posts" href="posts" items={posts.slice(0, 5)} />
+  <PostSection title="Micro" href="micro" items={micro.slice(0, 5)} />
 </BaseLayout>
 
 <style>

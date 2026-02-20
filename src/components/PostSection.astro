@@ -14,15 +14,16 @@ interface Props {
 }
 
 const { title, href, items } = Astro.props;
+const base = import.meta.env.BASE_URL;
 const formatter = new Intl.DateTimeFormat('en-CA');
 ---
 
 <section class="section content">
-  <h2><a href={href}>{title} →</a></h2>
+  <h2><a href={`${base}${href}/`}>{title} →</a></h2>
   <ul>
     {items.map((item) => (
       <li>
-        <a href={`${href}/${item.slug}/`}>{item.data.title}</a>
+        <a href={`${base}${href}/${item.slug}/`}>{item.data.title}</a>
         <time datetime={item.data.pubDate.toISOString()}>{formatter.format(item.data.pubDate)}</time>
       </li>
     ))}

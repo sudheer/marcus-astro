@@ -1,26 +1,37 @@
 ---
 import ThemeToggle from './ThemeToggle.astro';
 
+const base = import.meta.env.BASE_URL;
+
 const links = [
-  { href: '/', label: 'Home' },
-  { href: '/posts', label: 'Posts' },
-  { href: '/micro', label: 'Micro' }
+  { href: '', label: 'Home' },
+  { href: 'posts/', label: 'Posts' },
+  { href: 'micro/', label: 'Micro' }
 ];
 
-const isActive = (href: string, pathname: string) =>
-  href === '/' ? pathname === '/' : pathname.startsWith(href);
+const normalizePath = (pathname: string) => {
+  if (!pathname.startsWith(base)) return pathname;
+  const rest = pathname.slice(base.length);
+  return `/${rest}`.replace(/\/+/g, '/');
+};
+
+const isActive = (href: string, pathname: string) => {
+  const target = `/${href}`.replace(/\/+/g, '/').replace(/\/$/, '') || '/';
+  const current = normalizePath(pathname).replace(/\/$/, '') || '/';
+  return target === '/' ? current === '/' : current.startsWith(target);
+};
 
 const pathname = Astro.url.pathname;
 ---
 
 <header class="header shell">
   <div class="content row">
-    <a href="/" class="brand">SuDo</a>
+    <a href={base} class="brand">SuDo</a>
     <nav aria-label="Main">
       <ul>
         {links.map((link) => (
           <li>
-            <a href={link.href} aria-current={isActive(link.href, pathname) ? 'page' : undefined}>
+            <a href={`${base}${link.href}`} aria-current={isActive(link.href, pathname) ? 'page' : undefined}>
               {link.label}
             </a>
           </li>
