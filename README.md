@@ -41,38 +41,33 @@ All files under `src/content/` are intentionally demo placeholders so you can sa
 
 ## Where to see the sample website
 
-Right now, this repo is **not published automatically yet** unless GitHub Pages is enabled for the repository.
+This repo now supports **two Astro deployments from one repository**:
 
-Once enabled, the sample site will be available at:
+- **Production**: `main`/`master` branch → `gh-pages` root
+- **Development preview**: `dev` branch → `gh-pages/preview/`
 
-- `https://sudheer.github.io/marcus-astro/` (project pages), or
-- your configured custom domain if you set one.
+For a project site, URLs are typically:
 
-### Enable GitHub Pages (one-time)
+- Prod: `https://sudheer.github.io/marcus-astro/`
+- Dev: `https://sudheer.github.io/marcus-astro/preview/`
 
-1. Push this branch to your GitHub repo.
-2. In GitHub: **Settings → Pages**.
-3. Under **Build and deployment**, choose **GitHub Actions**.
-4. Merge to `main` (or `master`) to trigger deployment.
-5. Check the **Actions** tab for the `Deploy to GitHub Pages` workflow.
+## GitHub Pages setup (one-time)
 
+Yes, this is mostly a one-time setup.
 
-### GitHub Pages setup (one-time)
-
-Yes — this is mostly a one-time setup.
-
-In your repository:
-
-1. Go to **Settings → Pages**.
+1. Open **Settings → Pages** in your repository.
 2. Under **Build and deployment**, choose:
-   - **Source**: `GitHub Actions`
-3. Do **not** choose `Deploy from a branch` when using these workflows.
-4. Save and run the workflow by pushing to `main`/`master` (or trigger manually from **Actions**).
+   - **Source**: `Deploy from a branch`
+   - **Branch**: `gh-pages`
+   - **Folder**: `/(root)`
+3. Save.
 
-After this one-time setup, future deployments happen automatically from the workflow.
+After that:
 
-CI runs on PRs and pushes via `.github/workflows/ci.yml`.
+- pushing to `main`/`master` runs `.github/workflows/deploy-prod.yml`
+- pushing to `dev` runs `.github/workflows/deploy-dev.yml`
 
+The workflows publish to the same `gh-pages` branch, with prod at root and dev under `/preview/`.
 
 ## Review website before merging (PR previews)
 
