@@ -37,6 +37,7 @@ jobs:
         with:
           path: .
           node-version: 20
+          package-manager: npm
 
       - name: Build development preview site
         run: npm run build

@@ -21,6 +21,7 @@ jobs:
         with:
           path: .
           node-version: 20
+          package-manager: npm
 
       - name: Type/content check
         run: npm run check

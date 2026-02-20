@@ -161,3 +161,8 @@ PR preview workflow now:
 ## Workflow stack
 
 This repo now uses the **official Astro GitHub Action** (`withastro/action`) for setup/build steps, while keeping **branch-based publish** to `gh-pages` for prod/dev/PR preview paths.
+
+
+### CI note: no lockfile
+
+`withastro/action` requires explicit package manager when a lockfile is not present. Workflows are configured with `package-manager: npm` to avoid setup failures.
