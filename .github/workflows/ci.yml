@@ -16,13 +16,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - name: Setup Astro
+        uses: withastro/action@v3
         with:
+          path: .
           node-version: 20
-
-      - name: Install dependencies
-        run: npm install
 
       - name: Type/content check
         run: npm run check

@@ -156,3 +156,8 @@ PR preview workflow now:
 2. Deploys PR build to `/preview/pr-<PR_NUMBER>/`
 3. Verifies URL returns HTTP 200 before posting the preview link
 4. Posts a failure comment with exact Pages setting fixes if the URL is unreachable
+
+
+## Workflow stack
+
+This repo now uses the **official Astro GitHub Action** (`withastro/action`) for setup/build steps, while keeping **branch-based publish** to `gh-pages` for prod/dev/PR preview paths.
